@@ -105,5 +105,6 @@ public class ClickToMove : MonoBehaviour {
 	private void ResetPlayerClick(){
 		objectClicked = false;
 		targetedObject = null;
+		navMeshAgent.ResetPath ();
 	}
 }
