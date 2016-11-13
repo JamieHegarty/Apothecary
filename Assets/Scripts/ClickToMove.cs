@@ -61,6 +61,11 @@ public class ClickToMove : MonoBehaviour {
 		}
 	}
 
+	/*
+	TODO: Make direction changing sync up with animations better
+		  e.g. we can either not move when changing direction (like runescape)
+			   or we can have turning animations (needs investigation)
+	*/
 	private void MoveToObjectAndInteract() {
 		if(targetedObject == null){
 			return;
