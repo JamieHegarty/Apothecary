@@ -7,7 +7,10 @@
 /[Ll]ibrary/
 sysinfo.txt
 *.stackdump
- 
+*.csproj
+*.sln
+*.userprefs
+
 # ============================================= #
 # Visual Studio / MonoDevelop / Rider generated #
 # ============================================= #
@@ -26,7 +29,6 @@ sysinfo.txt
 # ============ #
 # OS generated #
 # ============ #
-Assembly-CSharp.csproj
 .DS_Store*
 ._*
 .Spotlight-V100
