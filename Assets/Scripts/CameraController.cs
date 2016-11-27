@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour {
 	private void HandleUserInput() {
 		if (Input.GetMouseButton (2)) { //2 == middle mouse button
 			xCameraPosition += Input.GetAxis ("Mouse X") * xMouseSpeedModifier;
-			yCameraPosition += Input.GetAxis ("Mouse Y") * yMouseSpeedModifier;
+			yCameraPosition -= Input.GetAxis ("Mouse Y") * yMouseSpeedModifier;
 		}
 
 		if (Input.GetKey(KeyCode.LeftArrow)){

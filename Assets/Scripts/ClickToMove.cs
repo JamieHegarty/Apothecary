@@ -8,7 +8,6 @@ public class ClickToMove : MonoBehaviour {
 	 * the value when you click the object, that way objects of different sizes behave differently
 	*/
 	public float interactionDistance = 1.0f; //Prob needs to be made private or we will forget to update in the editor
-
 	public PlayerInteraction interactionScript; //Not sure should this be manually assigned or do we Get Component in the awake function
 
 	private Animator anim;
@@ -65,6 +64,9 @@ public class ClickToMove : MonoBehaviour {
 	TODO: Make direction changing sync up with animations better
 		  e.g. we can either not move when changing direction (like runescape)
 			   or we can have turning animations (needs investigation)
+
+		  Putting this link here incase we get a weird rotation issue after interacting without gameObject
+		  http://answers.unity3d.com/questions/268149/how-set-navmesh-agent-facing-rotation-prior-to-nex.html
 	*/
 	private void MoveToObjectAndInteract() {
 		if(targetedObject == null){
@@ -94,7 +96,7 @@ public class ClickToMove : MonoBehaviour {
 			if (!navMeshAgent.hasPath || Mathf.Abs (navMeshAgent.velocity.sqrMagnitude) < float.Epsilon) {
 				playerIsWalking = false;
 			}
-		} else {
+		} else  {
 			playerIsWalking = true;
 		}
 
