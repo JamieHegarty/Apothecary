@@ -12,8 +12,12 @@ public class ContextMenu : MonoBehaviour {
 
     private ModalPanel modalPanel;
 
+    public GameObject player;
+    public GameObject hitObject;
+
     void Awake() {
         modalPanel = ModalPanel.Instance();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Use this for initialization
@@ -29,6 +33,7 @@ public class ContextMenu : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100.0f)) {
                 Debug.Log("You have clicked" + hit.transform.name);
+                hitObject = hit.transform.gameObject;
             }
 
             TestC();
@@ -53,6 +58,10 @@ public class ContextMenu : MonoBehaviour {
 
     void TestExamineFunction() {
         displayManager.DisplayMessage("Examining!");
+
+        //InteractionScript gotten to call examine call stack in PlayerInteraction
+        PlayerInteraction interactionScript = (PlayerInteraction)player.GetComponent(typeof(PlayerInteraction));
+        interactionScript.ExamineObject(hitObject);
     }
 
     void TestCancelFunction() {
