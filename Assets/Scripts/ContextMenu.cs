@@ -61,7 +61,7 @@ public class ContextMenu : MonoBehaviour {
 
         //InteractionScript gotten to call examine call stack in PlayerInteraction
         PlayerInteraction interactionScript = (PlayerInteraction)player.GetComponent(typeof(PlayerInteraction));
-        interactionScript.ExamineObject(hitObject);
+        //interactionScript.ExamineObject(hitObject);
     }
 
     void TestCancelFunction() {
