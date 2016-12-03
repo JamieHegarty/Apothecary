@@ -11,12 +11,12 @@ public class PlayerInteraction : MonoBehaviour {
 	private MovementDriver playerMovementDriver;
 	private AnimationDriver animationDriver;
 
-	private bool actingOnObject; //Represents if we are doing something regarding an object, open to better name suggestions
+    private bool actingOnObject; //Represents if we are doing something regarding an object, open to better name suggestions
 	GameObject selectedObject;
 
 	void Awake() {
 		playerMovementDriver = GetComponent<MovementDriver> ();
-	}
+    }
 
 	void Update () {
 

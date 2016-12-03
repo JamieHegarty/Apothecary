@@ -10,14 +10,15 @@ public class ContextMenu : MonoBehaviour {
     public GameObject thingToSpawn;
     public DisplayManager displayManager;
 
-    private ModalPanel modalPanel;
+    public GameObject objectClicked;
+    public Vector3 walkLocation;
 
-    public GameObject player;
-    public GameObject hitObject;
+    private ModalPanel modalPanel;
+    private PlayerInteraction playerInteraction;
 
     void Awake() {
         modalPanel = ModalPanel.Instance();
-        player = GameObject.FindGameObjectWithTag("Player");
+        playerInteraction = GetComponent<PlayerInteraction>();
     }
 
     // Use this for initialization
@@ -27,41 +28,46 @@ public class ContextMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (Input.GetMouseButtonDown(1)) {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100.0f)) {
-                Debug.Log("You have clicked" + hit.transform.name);
-                hitObject = hit.transform.gameObject;
-            }
-
-            TestC();
-        }
 	}
 
     //  Send to the Modal Panel to set up the Buttons and functions to call
-    public void TestC() {
+    public void TestC(string useTitle) {
+
         ModalPanelDetails modalPanelDetails = new ModalPanelDetails();
         modalPanelDetails.panelLocation = Input.mousePosition;
         modalPanelDetails.question = "This is an announcement!\nIf you don't like it, shove off!";
+
         modalPanelDetails.button1Details = new EventButtonDetails();
-        modalPanelDetails.button1Details.buttonTitle = "Examine";
-        modalPanelDetails.button1Details.action = TestExamineFunction;
+        modalPanelDetails.button1Details.buttonTitle = useTitle;
+        if(!objectClicked) {
+            modalPanelDetails.button1Details.action = TestWalkFunction;
+        } else {
+            modalPanelDetails.button1Details.action = TestUseFunction;
+        }
 
         modalPanelDetails.button2Details = new EventButtonDetails();
-        modalPanelDetails.button2Details.buttonTitle = "Cancel";
-        modalPanelDetails.button2Details.action = TestCancelFunction;
+        modalPanelDetails.button2Details.buttonTitle = "Examine";
+        modalPanelDetails.button2Details.action = TestExamineFunction;
+
+        modalPanelDetails.button3Details = new EventButtonDetails();
+        modalPanelDetails.button3Details.buttonTitle = "Cancel";
+        modalPanelDetails.button3Details.action = TestCancelFunction;
 
         modalPanel.NewChoice(modalPanelDetails);
     }
 
+    void TestWalkFunction() {
+        displayManager.DisplayMessage("Walking");
+        playerInteraction.ClickedNonObject(walkLocation);
+    }
+
+    void TestUseFunction() {
+        displayManager.DisplayMessage("USING!");
+        playerInteraction.ClickedInteractableObject(objectClicked);
+    }
+
     void TestExamineFunction() {
         displayManager.DisplayMessage("Examining!");
-
-        //InteractionScript gotten to call examine call stack in PlayerInteraction
-        PlayerInteraction interactionScript = (PlayerInteraction)player.GetComponent(typeof(PlayerInteraction));
-        //interactionScript.ExamineObject(hitObject);
     }
 
     void TestCancelFunction() {
