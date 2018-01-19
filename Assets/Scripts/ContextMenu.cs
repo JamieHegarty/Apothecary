@@ -13,7 +13,7 @@ public class ContextMenu : MonoBehaviour {
     public GameObject objectClicked;
     public Vector3 walkLocation;
 
-    private ModalPanel modalPanel;
+    public ModalPanel modalPanel;
     private PlayerInteraction playerInteraction;
 
     void Awake() {
