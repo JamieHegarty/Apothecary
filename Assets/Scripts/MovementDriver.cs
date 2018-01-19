@@ -4,7 +4,7 @@ using System.Collections;
 public class MovementDriver : MonoBehaviour {
 
 	private AnimationDriver animationDriver;
-	private NavMeshAgent navMeshAgent;
+	private UnityEngine.AI.NavMeshAgent navMeshAgent;
 
 	private bool playerIsWalking;
 	private bool walkingStateLastTick;
@@ -16,7 +16,7 @@ public class MovementDriver : MonoBehaviour {
 
 
 	void Awake () {
-		navMeshAgent = GetComponent<NavMeshAgent> ();
+		navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
 		animationDriver = GetComponent<AnimationDriver> ();
 	}
 
