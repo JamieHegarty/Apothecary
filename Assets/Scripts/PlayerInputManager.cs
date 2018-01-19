@@ -26,12 +26,13 @@ public class PlayerInputManager : MonoBehaviour {
 
 		if(Physics.Raycast(mouseRaycast, out mouseRaycastHit, mouseRaycastDistance)) { //This makes sure the mouse is actually over an object, otherwise we don't care
 			if (Input.GetButtonDown ("Fire1") && !EventSystem.current.IsPointerOverGameObject()) {
+				contextMenu.modalPanel.modalPanelObject.SetActive(false);
 				if (mouseRaycastHit.collider.CompareTag ("InteractableObject")){
 					playerInteraction.ClickedInteractableObject (mouseRaycastHit.collider.gameObject);
 				} else {
 					playerInteraction.ClickedNonObject (mouseRaycastHit.point);
 				}
-
+				
 			} else if (Input.GetButtonDown ("Fire2")) {                
                 if (mouseRaycastHit.collider.CompareTag("InteractableObject")) {
                     contextMenu.objectClicked = mouseRaycastHit.collider.gameObject;
