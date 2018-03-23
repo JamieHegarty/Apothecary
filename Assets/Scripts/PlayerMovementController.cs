@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovementDriver : MonoBehaviour {
+public class PlayerMovementController : MonoBehaviour {
 
 	private AnimationDriver animationDriver;
 	private UnityEngine.AI.NavMeshAgent navMeshAgent;
@@ -18,6 +18,16 @@ public class MovementDriver : MonoBehaviour {
 	void Awake () {
 		navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
 		animationDriver = GetComponent<AnimationDriver> ();
+	}
+
+	void Start ()
+	{
+		GlobalEventHandler.Instance.WalkEvent += MovePlayer;
+	}
+
+	public void MovePlayer(GameObject obj)
+	{
+		Debug.Log("Move player");
 	}
 
 	void Update () {

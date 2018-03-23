@@ -8,19 +8,30 @@ using System.Collections;
 */
 public class PlayerInteraction : MonoBehaviour {
 
-	private MovementDriver playerMovementDriver;
+	//TODO: Remove
+	private PlayerMovementController playerMovementDriver;
 	private AnimationDriver animationDriver;
 
     private bool actingOnObject; //Represents if we are doing something regarding an object, open to better name suggestions
 	GameObject selectedObject;
 
 	void Awake() {
-		playerMovementDriver = GetComponent<MovementDriver> ();
+		//TODO: Remove
+		playerMovementDriver = GetComponent<PlayerMovementController> ();
     }
 
-	void Update () {
+	private void Start() {
+		GlobalEventHandler.Instance.ObjectClickedEvent += ProcessObject;
+	}
+
+	void ProcessObject(GameObject obj){
+		Debug.Log("Process Object: " + obj.name);
+		InteractableObject interactableObject = obj.GetComponent<InteractableObject>();
+		interactableObject.DefaultAction();
 
 	}
+	
+	// -----------------------------------------------------------------------------
 
 	public void ClickedNonObject(Vector3 targetDestination){
 		playerMovementDriver.SetPlayerWalking (true);
@@ -40,7 +51,7 @@ public class PlayerInteraction : MonoBehaviour {
 		   so when it reaches the object it will trigger a call to this function.
 		   This should be interfaced further to allow us to add different function calls but for 
 		   now consider it proof of concept */
-		MovementDriver.reachedObjectEvent += UseObject;
+		PlayerMovementController.reachedObjectEvent += UseObject;
 
 		actingOnObject = true;
 	}
@@ -50,7 +61,7 @@ public class PlayerInteraction : MonoBehaviour {
 		InteractableObject objectScript = selectedObject.GetComponent<InteractableObject> ();
 		objectScript.PlayerUseObject ();
 
-		MovementDriver.reachedObjectEvent -= UseObject; //Remove the callback from the event list as it has been used
+		PlayerMovementController.reachedObjectEvent -= UseObject; //Remove the callback from the event list as it has been used
 
 	}
 }
